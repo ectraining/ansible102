@@ -1,0 +1,18 @@
+---
+- name: Deploy the Apache webserver
+  hosts: web
+  become: yes
+
+  tasks:
+    - name: Install the Apache webserver package
+      package:
+        name: "{{ apache_webserver_package }}"
+        state: present
+
+    - name: Enable and start the Apache webserver
+      service:
+        name: "{{ apache_webserver_service }}"
+        state: started
+        enabled: yes
+
+
