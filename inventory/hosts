@@ -19,5 +19,25 @@ node08 ansible_host=tr-node08.training.edgecloud.com
 
 [nyc]
 node[01:04]
+
 [sfo]
 node[05:08]
+
+[proxy]
+node01
+node05
+
+[db]
+node02
+node06
+
+[web]
+node[03:04]
+node[07:08]
+
+[frontend:children]
+web
+proxy
+
+
+
