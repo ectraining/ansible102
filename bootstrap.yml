@@ -1,0 +1,23 @@
+---
+- name: Bootstrap a clean, fresh install of Enterprise Linux for Ansible
+  hosts: all
+  remote_user: root
+  gather_facts: no
+
+  tasks:
+    - name: Create the ansible user
+      user:
+        name: ansible
+        comment: Configuration Automation User
+
+    - name: Grant passwordless sudo capability to ansible user
+      copy:
+        content: ansible ALL=(ALL) NOPASSWD:ALL
+        dest: /etc/sudoers.d/ansible
+
+    - name: Push student@workstation SSH key to ansible user
+      authorized_key:
+        user: ansible
+        key: "{{ lookup( 'file', '~/.ssh/id_rsa.pub' ) }}"
+        comment: student@workstation
+
