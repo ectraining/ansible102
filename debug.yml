@@ -1,0 +1,6 @@
+---
+# Dumps hostvars unless given different variable name with '-e var=_____'
+- hosts: all
+  tasks:
+    - debug:
+        var: "{{ var | default('hostvars') }}"
