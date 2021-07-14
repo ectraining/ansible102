@@ -1,0 +1,10 @@
+- name: Install the haproxy package
+  package:
+    name: "{{ haproxy_package }}"
+    state: present
+
+- name: Enable and start the haproxy proxy service
+  service:
+    name: "{{ haproxy_service }}"
+    state: started
+    enabled: yes

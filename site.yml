@@ -1,0 +1,31 @@
+---
+#- name: Apply common role to all hosts
+#  hosts: all
+#
+#  tasks:
+#    - import_role:
+#        name: common
+
+- name: Apply the web role to the web servers
+  hosts: web
+  become: yes
+
+  tasks:
+    - import_role:
+        name: web
+
+- name: Apply the db role to the db servers
+  hosts: db
+  become: yes
+
+  tasks:
+    - import_role:
+        name: db
+
+- name: Apply the proxy role to the proxy servers
+  hosts: proxy
+  become: yes
+
+  tasks:
+    - import_role:
+        name: proxy
