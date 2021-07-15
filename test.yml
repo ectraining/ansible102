@@ -1,6 +1,7 @@
 ---
 - name: test the custom ansible102 module
   hosts: all
+  become: yes
   tasks:
     - name: run the new module
       ansible102:
