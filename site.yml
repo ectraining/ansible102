@@ -1,17 +1,23 @@
 ---
+- name: Always gather all facts
+  hosts: all
+  tags: [ always ]
+
 - name: Apply common role to all hosts
   hosts: all
   become: yes
+  gather_facts: no
+  tags: [ common ]
 
   tasks:
     - import_role:
         name: common
-      tags: [ common ]
 
 - name: Apply the web role to the web servers
   hosts: web
   become: yes
   gather_facts: no
+  tags: [ web ]
 
   tasks:
     - import_role:
@@ -21,6 +27,7 @@
   hosts: db
   become: yes
   gather_facts: no
+  tags: [ db ]
 
   tasks:
     - import_role:
@@ -30,6 +37,7 @@
   hosts: proxy
   become: yes
   gather_facts: no
+  tags: [ proxy ]
 
   tasks:
     - import_role:
