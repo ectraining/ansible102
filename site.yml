@@ -1,6 +1,7 @@
 ---
 - name: Always gather all facts
   hosts: all
+  gather_facts: yes
   tags: [ always ]
 
 - name: Apply common role to all hosts
