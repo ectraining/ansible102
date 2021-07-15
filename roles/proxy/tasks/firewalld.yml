@@ -1,0 +1,10 @@
+- name: Allow the internet to reach http/s on the proxy servers
+  firewalld:
+    zone: public
+    service: "{{ item }}"
+    state: enabled
+    permanent: yes
+  with_items: [ http, https ]
+  notify:
+    reload_firewalld
+
