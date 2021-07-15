@@ -1,0 +1,12 @@
+---
+- name: test the custom ansible102 module
+  hosts: all
+  tasks:
+    - name: run the new module
+      ansible102:
+        name: 'Inbound message is here'
+        new: true
+      register: testout
+    - name: dump test output
+      debug:
+        msg: '{{ testout }}'
