@@ -9,39 +9,5 @@
     state: started
     enabled: yes
 
-- name: Add NYC proxy servers to internal zone
-  # We need to get the IP address of our local proxy server..
-  firewalld:
-    source: "{{ hostvars[item]['ansible_facts']['default_ipv4']['address'] }}"
-    zone: internal
-    state: enabled
-    permanent: yes
-  with_inventory_hostnames:
-    - 'proxy:&nyc'
-  when: '"nyc" in group_names'
-  notify:
-    reload_firewalld
-
-- name: Add SFO proxy servers to internal zone
-  # We need to get the IP address of our local proxy server..
-  firewalld:
-    source: "{{ hostvars[item]['ansible_facts']['default_ipv4']['address'] }}"
-    zone: internal
-    state: enabled
-    permanent: yes
-  with_inventory_hostnames:
-    - 'proxy:&sfo'
-  when: '"sfo" in group_names'
-  notify:
-    reload_firewalld
-
-- name: Allow proxy servers access to http/s services
-  firewalld:
-    zone: internal
-    service: "{{ item }}"
-    state: enabled
-    permanent: yes
-  with_items: [ http, https ]
-  notify:
-    reload_firewalld
+- include_tasks: firewalld.yml
 
