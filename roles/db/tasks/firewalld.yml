@@ -1,0 +1,35 @@
+- name: Add NYC web servers to internal zone
+  # We need to get the IP address of our local web servers..
+  firewalld:
+    source: "{{ hostvars[item]['ansible_facts']['default_ipv4']['address'] }}"
+    zone: internal
+    state: enabled
+    permanent: yes
+  with_inventory_hostnames:
+    - 'web:&nyc'
+  when: '"nyc" in group_names'
+  notify:
+    reload_firewalld
+
+- name: Add SFO web servers to internal zone
+  # We need to get the IP address of our local web servers..
+  firewalld:
+    source: "{{ hostvars[item]['ansible_facts']['default_ipv4']['address'] }}"
+    zone: internal
+    state: enabled
+    permanent: yes
+  with_inventory_hostnames:
+    - 'web:&sfo'
+  when: '"sfo" in group_names'
+  notify:
+    reload_firewalld
+
+- name: Allow web servers access to mysql service
+  firewalld:
+    zone: internal
+    service: mysql
+    state: enabled
+    permanent: yes
+  notify:
+    reload_firewalld
+

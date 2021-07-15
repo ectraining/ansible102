@@ -8,3 +8,6 @@
     name: "{{ mariadb_service }}"
     state: started
     enabled: yes
+
+- include_tasks: firewalld.yml
+
